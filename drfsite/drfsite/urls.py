@@ -15,33 +15,16 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-<<<<<<< HEAD
+
 from django.urls import path, include
-from women.views import WomenViewSet
-from rest_framework import routers
-=======
-from django.urls import path
 from women.views import *
-from django.urls import path
+from rest_framework import routers
 from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView, SpectacularRedocView
->>>>>>> b02ee8ac92253d09a7e772900e29e023483d0d7a
 
-router = routers.DefaultRouter()
-router.register(r'women', WomenViewSet, basename='women')
-print(router.urls)
 urlpatterns = [
-    path("admin/", admin.site.urls),
-<<<<<<< HEAD
-    path("api/v1/", include(router.urls)),
-
-    # path("api/v1/womenlist/", WomenAPIView.as_view()),
-    # path("api/v1/womenlist/<int:pk>/", WomenAPIView.as_view()),
-=======
-    path("api/v1/womenlist/", WomenViewSet.as_view({'get': 'list'})),
-    path("api/v1/womenlist/<int:pk>/",  WomenViewSet.as_view({'put': 'update'})),
-    # path("api/v1/womendetail/<int:pk>/", WomenAPIDetailView.as_view()),
-    path('api/v1/schema/', SpectacularAPIView.as_view(), name='schema'),
-    path('api/v1/docs/', SpectacularSwaggerView.as_view(url_name='schema'), name='swagger-ui'),
-    path('api/v1/redoc/', SpectacularRedocView.as_view(url_name='schema'), name='redoc'),
->>>>>>> b02ee8ac92253d09a7e772900e29e023483d0d7a
+    path('admin/', admin.site.urls),
+    path('api/v1/drf-auth/', include('rest_framework.urls')),
+    path('api/v1/women/', WomenAPIList.as_view()),
+    path('api/v1/women/<int:pk>/', WomenAPIUpdate.as_view()),
+    path('api/v1/womendelete/<int:pk>/', WomenAPIDestroy.as_view()),
 ]
